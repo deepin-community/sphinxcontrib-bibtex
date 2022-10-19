@@ -1,0 +1,12 @@
+Test-Command: set -e
+ ; cp -r test "$AUTOPKGTEST_TMP"
+ ; for py in $(py3versions -r 2>/dev/null)
+ ; do cd "$AUTOPKGTEST_TMP"
+ ; echo "Testing with $py:"
+ ; $py -m pytest -v
+ ; done
+Depends: python3-all,
+         python3-pybtex (>= 0.22.2-1~),
+         python3-pytest,
+         python3-sphinxcontrib.bibtex
+Restrictions: allow-stderr

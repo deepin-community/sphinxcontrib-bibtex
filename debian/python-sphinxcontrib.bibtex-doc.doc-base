@@ -1,0 +1,9 @@
+Document: python-sphinxcontrib.bibtex-doc
+Title: sphinxcontrib-bibtex Documentation
+Author: Matthias C. M. Troffaes
+Abstract: This is the reference documentation for sphinxcontrib-bibtex.
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python-sphinxcontrib.bibtex-doc/html/index.html
+Files: /usr/share/doc/python-sphinxcontrib.bibtex-doc/html/*.html

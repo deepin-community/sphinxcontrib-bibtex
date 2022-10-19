@@ -1,0 +1,59 @@
+From: Ghislain Antony Vaillant <ghisvail@gmail.com>
+Date: Sat, 22 Jul 2017 23:32:59 +0100
+Subject: No privacy breach
+Forwarded: not-needed
+
+---
+ README.rst | 18 ------------------
+ setup.py   |  2 +-
+ 2 files changed, 1 insertion(+), 19 deletions(-)
+
+diff --git a/README.rst b/README.rst
+index cf32819..ec2abc4 100644
+--- a/README.rst
++++ b/README.rst
+@@ -1,8 +1,6 @@
+ sphinxcontrib-bibtex
+ ====================
+ 
+-|ci| |codecov| |version| |license|
+-
+ Sphinx extension for BibTeX style citations.
+ 
+ Overview
+@@ -30,22 +28,6 @@ and Weston Nielson's
+ 
+ * Development: https://github.com/mcmtroffaes/sphinxcontrib-bibtex/
+ 
+-.. |ci| image:: https://github.com/mcmtroffaes/sphinxcontrib-bibtex/actions/workflows/python-package.yml/badge.svg
+-    :target: https://github.com/mcmtroffaes/sphinxcontrib-bibtex/actions/workflows/python-package.yml
+-    :alt: ci
+-
+-.. |codecov| image:: https://codecov.io/gh/mcmtroffaes/sphinxcontrib-bibtex/branch/develop/graph/badge.svg
+-    :target: https://app.codecov.io/gh/mcmtroffaes/sphinxcontrib-bibtex
+-    :alt: codecov
+-
+-.. |version| image:: https://img.shields.io/pypi/v/sphinxcontrib-bibtex.svg
+-    :target: https://pypi.org/project/sphinxcontrib-bibtex/
+-    :alt: latest version
+-
+-.. |license| image:: https://img.shields.io/pypi/l/sphinxcontrib-bibtex.svg
+-    :target: https://pypi.org/project/sphinxcontrib-bibtex/
+-    :alt: license
+-
+ Installation
+ ------------
+ 
+diff --git a/setup.py b/setup.py
+index 278d70a..b01457a 100644
+--- a/setup.py
++++ b/setup.py
+@@ -9,7 +9,7 @@ def readfile(filename: str) -> str:
+         return stream.read()
+ 
+ 
+-readme = readfile("README.rst").split("\n")[5:]  # skip title and badges
++readme = readfile("README.rst").split("\n")[3:]  # skip title
+ requires = readfile("requirements.txt").split("\n")
+ version_match = re.search("'version': '(.+)'",
+                           readfile("src/sphinxcontrib/bibtex/__init__.py"))

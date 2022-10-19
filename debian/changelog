@@ -1,0 +1,105 @@
+sphinxcontrib-bibtex (2.4.1-3) unstable; urgency=medium
+
+  * Team upload.
+  * debian/watch: fix for new GitHub layout
+
+ -- Michael R. Crusoe <crusoe@debian.org>  Sun, 07 Nov 2021 17:37:58 +0100
+
+sphinxcontrib-bibtex (2.4.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Add breaks for python3-nbsphinx before 0.8.7
+  * Append ":any" to Python build-dep to facilitate cross-building
+  * Marked two Debian specific patches as not needing forwarding to
+    upstream.
+  * Standards-Version: 4.6.0 (routine-update)
+  * debhelper-compat 13 (routine-update)
+  * Add salsa-ci file (routine-update)
+  * Rules-Requires-Root: no (routine-update)
+
+ -- Michael R. Crusoe <crusoe@debian.org>  Sun, 10 Oct 2021 13:51:21 +0200
+
+sphinxcontrib-bibtex (2.4.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Make the autopkgtest depend on pybtex ≥ 0.22.2-1 (see #958493).
+  * Update debian/watch to track releases from GitHub.
+    The latest tarball on PyPI has bad line endings.
+  * Drop Use-sortedcollections.patch, no longer needed.
+  * Refresh and rebase the other patches.
+  * Update dependencies:
+    - Require python3-pybtex-docutils ≥ 1.0.0.
+    - Require sphinx ≥ 2.1.
+    - Remove python3-sphinx-testing, no longer needed.
+    - Remove python3-sortedcollections, no longer needed.
+  * Switch from nose to pytest for testing.
+  * Add src/sphinxcontrib_bibtex.egg-info to pybuild.testfiles.
+  * Set PYTHONPATH to ./src when building the docs.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Sun, 26 Apr 2020 20:23:21 +0300
+
+sphinxcontrib-bibtex (1.0.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+    - Compatible with Sphinx 2.x (closes: #955121).
+  * Drop Register-node-with-override.patch, applied upstream.
+  * Rebase the other patches.
+  * Remove python3-six build-dependency, no longer needed.
+  * Bump python3-sphinx build-dependency and dependency to 2.0.
+  * Update to debhelper compat level 12, use the new syntax.
+  * Drop NOSE_IGNORE_FILES export, the Tinkerer test was removed.
+  * Bump Standards-Version to 4.5.0, no changes needed.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Fri, 17 Apr 2020 20:01:42 +0300
+
+sphinxcontrib-bibtex (0.4.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Add a patch to fix test failures with sphinx-testing 0.8.1
+    (Register-node-with-override.patch).
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Sun, 06 Jan 2019 00:58:28 +0300
+
+sphinxcontrib-bibtex (0.4.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Build-depend on sphinx ≥ 1.6, following upstream requirements.txt.
+  * Refresh debian/patches/Use-sortedcollections.patch.
+  * Update debian/patches/No-privacy-breach.patch to not break package
+    description in PKG-INFO file.
+  * Remove the namespace package .pth file, use implicit namespace.
+  * Drop unused Lintian extra-license-file override. See #885968.
+  * Bump Standards-Version to 4.3.0, no changes needed.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Sat, 05 Jan 2019 19:01:15 +0300
+
+sphinxcontrib-bibtex (0.4.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+    - Compatible with Sphinx 1.7 (closes: #895882).
+  * Rebase patches for the new release.
+  * Depend on python3-pybtex ≥ 0.20 (following upstream requirement).
+  * Update Vcs fields to point to salsa.debian.org.
+  * Update Source URL in debian/copyright.
+  * Bump Standards-Version to 4.1.4, no changes needed.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Fri, 18 May 2018 14:04:49 +0300
+
+sphinxcontrib-bibtex (0.3.6-2) unstable; urgency=medium
+
+  * Enable testing during build
+  * Ignore tests requiring Tinkerer
+  * Add missing B-D on sphinx-common
+  * Bump the standards version to 4.1.1
+
+ -- Ghislain Antony Vaillant <ghisvail@gmail.com>  Fri, 17 Nov 2017 17:30:43 +0000
+
+sphinxcontrib-bibtex (0.3.6-1) unstable; urgency=low
+
+  * Initial release. (Closes: #800358)
+
+ -- Ghislain Antony Vaillant <ghisvail@gmail.com>  Wed, 27 Sep 2017 17:11:06 +0100
