@@ -1,14 +1,15 @@
-import dataclasses
 from abc import ABC
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING, Dict, Iterable, List, Optional, Tuple, Union
 
 import pybtex.plugin
-from pybtex.richtext import Text, Tag
-from sphinxcontrib.bibtex.richtext import ReferenceInfo, BaseReferenceText
+from pybtex.richtext import Tag, Text
+
 from sphinxcontrib.bibtex.style.template import (
-    names, sentence, join, author_or_editor_or_title
-)
-from typing import (
-    TYPE_CHECKING, Tuple, List, Union, Iterable, Type, Optional, Dict
+    author_or_editor_or_title,
+    join,
+    names,
+    sentence,
 )
 
 if TYPE_CHECKING:
@@ -18,16 +19,18 @@ if TYPE_CHECKING:
     from pybtex.style.names import BaseNameStyle
     from pybtex.style.template import Node
 
+    from sphinxcontrib.bibtex.richtext import ReferenceInfo
 
-@dataclasses.dataclass
+
+@dataclass
 class BaseReferenceStyle(ABC):
     """Base class for citation reference styles.
 
     For consistency, all subclasses of this class must be decorated
-    as a :class:`dataclasses.dataclass`,
+    as a :class:`dataclass`,
     and must provide a type annotation and default value for all attributes
     (unless ``init=False`` is used, in which case they can be
-    initialized in :meth:`~dataclasses.dataclass.__post_init__`).
+    initialized in :meth:`~dataclass.__post_init__`).
     This allows client code to instantiate any reference style
     without needing to specify any arguments through the constructor.
     """
@@ -40,8 +43,7 @@ class BaseReferenceStyle(ABC):
         """Get list of role names supported by this style."""
         raise NotImplementedError
 
-    def outer(
-            self, role_name: str, children: List["BaseText"]) -> "Node":
+    def outer(self, role_name: str, children: List["BaseText"]) -> "Node":
         """Returns outer template for formatting the references."""
         raise NotImplementedError
 
@@ -51,18 +53,16 @@ class BaseReferenceStyle(ABC):
 
 
 def format_references(
-        style: BaseReferenceStyle,
-        reference_text_class: Type[BaseReferenceText[ReferenceInfo]],
-        role_name: str,
-        references: Iterable[Tuple[
-            "Entry", "FormattedEntry", ReferenceInfo]],
-        ) -> "BaseText":
+    style: BaseReferenceStyle,
+    role_name: str,
+    references: Iterable[Tuple["Entry", "FormattedEntry", "ReferenceInfo"]],
+) -> "BaseText":
     """Format the list of references according to the given role.
 
     First formats each reference using the style's
-    :meth:`~BaseReferenceStyle.get_inner` method,
+    :meth:`~BaseReferenceStyle.inner` method,
     then joins all these formatted references together using
-    the style's :meth:`~BaseReferenceStyle.get_outer` method.
+    the style's :meth:`~BaseReferenceStyle.outer` method.
     """
     children = [
         style.inner(role_name).format_data(
@@ -70,27 +70,29 @@ def format_references(
                 entry=entry,
                 formatted_entry=formatted_entry,
                 reference_info=info,
-                reference_text_class=reference_text_class,
-                style=style))
-        for entry, formatted_entry, info in references]
+                style=style,
+            )
+        )
+        for entry, formatted_entry, info in references
+    ]
     return style.outer(role_name, children).format()
 
 
-@dataclasses.dataclass
+@dataclass
 class BracketStyle:
     """A class which provides brackets, as well as separators
     and a function to facilitate formatting of the outer template.
     """
 
     #: Left bracket.
-    left: Union["BaseText", str] = '['
+    left: Union["BaseText", str] = "["
 
     #: Right bracket.
-    right: Union["BaseText", str] = ']'
+    right: Union["BaseText", str] = "]"
 
     #: Separators used for outer template (i.e. in between references
     #: if multiple keys are referenced in a single citation).
-    sep: Union["BaseText", str] = ', '
+    sep: Union["BaseText", str] = ", "
 
     #: Separator for outer template, if only two items.
     sep2: Optional[Union["BaseText", str]] = None
@@ -99,14 +101,14 @@ class BracketStyle:
     last_sep: Optional[Union["BaseText", str]] = None
 
     def outer(
-            self, children: List["BaseText"],
-            brackets=False, capfirst=False) -> "Node":
+        self, children: List["BaseText"], brackets=False, capfirst=False
+    ) -> "Node":
         """Creates an outer template with separators,
         adding brackets if requested,
         and capitalizing the first word if requested.
         """
         return join[
-            self.left if brackets else '',
+            self.left if brackets else "",
             sentence(
                 capfirst=capfirst,
                 add_period=False,
@@ -114,42 +116,44 @@ class BracketStyle:
                 sep2=self.sep2,
                 last_sep=self.last_sep,
             )[children],
-            self.right if brackets else '',
+            self.right if brackets else "",
         ]
 
 
-@dataclasses.dataclass
+@dataclass
 class PersonStyle:
     """A class providing additional data and helper functions
     to facilitate formatting of person names.
     """
 
     #: Plugin name of the style used for formatting person names.
-    style: str = 'last'
+    style: str = "last"
 
     #: Plugin class instance used for formatting person names.
     #: Automatically initialised from :attr:`style`.
-    style_plugin: "BaseNameStyle" = dataclasses.field(init=False)
+    style_plugin: "BaseNameStyle" = field(init=False)
 
     #: Whether or not to abbreviate first names.
     abbreviate: bool = True
 
     #: Separator between persons.
-    sep: Union["BaseText", str] = ', '
+    sep: Union["BaseText", str] = ", "
 
     #: Separator between persons, if only two persons.
-    sep2: Optional[Union["BaseText", str]] = ' and '
+    sep2: Optional[Union["BaseText", str]] = " and "
 
     #: Separator between persons, for last person if three or more persons.
-    last_sep: Optional[Union["BaseText", str]] = ', and '
+    last_sep: Optional[Union["BaseText", str]] = ", and "
 
     #: Abbreviation text if three or more persons.
-    other: Optional[Union["BaseText", str]] = \
-        Text(' ', Tag('em', 'et al.'))
+    other: Optional[Union["BaseText", str]] = field(
+        default_factory=lambda: Text(" ", Tag("em", "et al."))
+    )
 
     def __post_init__(self):
         self.style_plugin = pybtex.plugin.find_plugin(
-            'pybtex.style.names', name=self.style)()
+            "pybtex.style.names", name=self.style
+        )()
 
     def names(self, role: str, full: bool) -> "Node":
         """Returns a template formatting the persons with correct separators
@@ -175,18 +179,16 @@ class PersonStyle:
         )
 
 
-@dataclasses.dataclass
+@dataclass
 class GroupReferenceStyle(BaseReferenceStyle):
     """Composes a group of reference styles into a single consistent style."""
 
     #: List of style types.
-    styles: List[BaseReferenceStyle] \
-        = dataclasses.field(default_factory=list)
+    styles: List[BaseReferenceStyle] = field(default_factory=list)
 
     #: Dictionary from role names to styles.
     #: Automatically initialized from :attr:`styles`.
-    role_style: Dict[str, BaseReferenceStyle] \
-        = dataclasses.field(default_factory=dict)
+    role_style: Dict[str, BaseReferenceStyle] = field(default_factory=dict)
 
     def __post_init__(self):
         super().__post_init__()
