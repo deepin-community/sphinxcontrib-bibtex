@@ -1,0 +1,20 @@
+From: Dmitry Shachnev <mitya57@debian.org>
+Date: Sun, 29 Oct 2023 21:26:18 +0300
+Subject: Temporarily allow docutils 0.19
+
+Our version 0.19+dfsg-8 has the needed fix.
+---
+ requirements.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/requirements.txt b/requirements.txt
+index 04502d2..2c70ef4 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -1,5 +1,5 @@
+ Sphinx>=3.5
+-docutils>=0.8,!=0.18.*,!=0.19.*
++docutils>=0.8,!=0.18.*
+ pybtex>=0.24
+ pybtex-docutils>=1.0.0
+ dataclasses; python_version < '3.7'

@@ -1,3 +1,53 @@
+sphinxcontrib-bibtex (2.6.2-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream version
+    Closes: #1061006
+  * Build-Depends: s/python-sphinx/python3-sphinx/ (routine-update)
+  * Build-Depends: s/dh-python/dh-sequence-python3/ (routine-update)
+
+ -- Andreas Tille <tille@debian.org>  Tue, 23 Jan 2024 16:19:30 +0100
+
+sphinxcontrib-bibtex (2.6.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Drop Update-footnote-regexp-for-docutils-0.20.patch, included in the
+    new release.
+  * Rebase the other patches.
+  * Add a patch to temporarily allow docutils 0.19.
+  * Depend on docutils 0.19+dfsg-8, which has the fix for extra closing tag.
+  * Depend on python3-sphinx-autoapi for tests.
+  * Add src/sphinxcontrib_bibtex.egg-info to debian/clean.
+  * Copy pytest.ini when running the autopkgtest.
+  * Fix built-using-field-on-arch-all-package Lintian warning.
+  * Bump Standards-Version to 4.6.2, no changes needed.
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Mon, 30 Oct 2023 09:26:16 +0300
+
+sphinxcontrib-bibtex (2.5.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Backport upstream patch to make the tests pass with docutils 0.20
+    (closes: #1042630).
+
+ -- Dmitry Shachnev <mitya57@debian.org>  Sun, 06 Aug 2023 19:03:18 +0300
+
+sphinxcontrib-bibtex (2.5.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream version ; doesn't FTBFS with Sphinx 5.x
+    thus (Closes: #1013388)
+  * Standards-Version: 4.6.1 (routine-update)
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository,
+    Repository-Browse.
+  * Drop build-dep on dpkg-dev, even old-old-stable has a new enough
+    version (1.17.14+)
+  * Skip test_citation_rinoh* as rinoh isn't packaged for Debian yet
+  * new test dep: python3-numpydoc
+
+ -- Michael R. Crusoe <crusoe@debian.org>  Tue, 08 Nov 2022 17:44:01 +0100
+
 sphinxcontrib-bibtex (2.4.1-3) unstable; urgency=medium
 
   * Team upload.

@@ -1,22 +1,23 @@
 From: Ghislain Antony Vaillant <ghisvail@gmail.com>
 Date: Sun, 3 Sep 2017 06:57:16 +0200
 Subject: Use the packaged docs
-Forwarded: not-needed
 
+Forwarded: not-needed
 ---
  doc/conf.py | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/doc/conf.py b/doc/conf.py
-index c46ac13..7b34b32 100644
+index 6c22bb7..4f808d8 100644
 --- a/doc/conf.py
 +++ b/doc/conf.py
-@@ -241,6 +241,6 @@ texinfo_documents = [
- 
- # Example configuration for intersphinx: refer to the Python standard library.
+@@ -16,7 +16,7 @@ version = ".".join(release.split(".")[:2])
+ exclude_patterns = ["_build"]
+ pygments_style = "sphinx"
  intersphinx_mapping = {
--    'python': ('https://docs.python.org/3/', None),
--    'sphinx': ('http://www.sphinx-doc.org/en/master/', None),
-+    'python': ('https://docs.python.org/3/', '/usr/share/doc/python3-doc/html/objects.inv'),
-+    'sphinx': ('http://www.sphinx-doc.org/en/master/', '/usr/share/doc/sphinx-doc/html/objects.inv'),
+-    "python": ("https://docs.python.org/3/", None),
+-    "sphinx": ("http://www.sphinx-doc.org/en/master/", None),
++    "python": ("https://docs.python.org/3/", "/usr/share/doc/python3-doc/html/objects.inv"),
++    "sphinx": ("http://www.sphinx-doc.org/en/master/", "/usr/share/doc/sphinx-doc/html/objects.inv"),
  }
+ html_theme = "alabaster"

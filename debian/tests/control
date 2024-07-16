@@ -1,12 +1,14 @@
 Test-Command: set -e
- ; cp -r test "$AUTOPKGTEST_TMP"
+ ; cp -r test pytest.ini "$AUTOPKGTEST_TMP"
  ; for py in $(py3versions -r 2>/dev/null)
  ; do cd "$AUTOPKGTEST_TMP"
  ; echo "Testing with $py:"
- ; $py -m pytest -v
+ ; $py -m pytest -v -k "not test_citation_rinoh"
  ; done
 Depends: python3-all,
          python3-pybtex (>= 0.22.2-1~),
          python3-pytest,
-         python3-sphinxcontrib.bibtex
+         python3-sphinx-autoapi,
+         python3-sphinxcontrib.bibtex,
+         python3-numpydoc
 Restrictions: allow-stderr

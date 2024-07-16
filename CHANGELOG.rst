@@ -1,3 +1,103 @@
+2.6.2 (10 January 2023)
+-----------------------
+
+* Fix bibliography header repetition when recompiling documents
+  (reported by ragonneau, see issue #342 and pull request #343).
+
+2.6.1 (27 August 2023)
+----------------------
+
+* The ``:cite:alp:`` role in the super style now also suppresses the sup tag
+  in addition to the brackets, to make it easier to apply the necessary formatting
+  around the citation.
+
+2.6.0 (24 August 2023)
+----------------------
+
+* Pre- and post-text in citations are now supported for the
+  author_year, label, and super referencing styles. The syntax is
+  ``:cite:p:`{pre-text}key{post-text}``` (requested by RobertoBagnara,
+  see issue #288 and pull request #316).
+  Refer to the documentation for more details.
+
+* New alternative style citations are now supported for the
+  author_year, label, and super parenthetical referencing styles,
+  which are identical to parenthetical citations but without the brackets.
+  The syntax is
+  ``:cite:alp:`key``` (requested by davidorme, see pull request #316).
+  Refer to the documentation for more details.
+
+* Exclude docutils 0.18 and 0.19 to fix generation of a spurious div tag in the
+  html builder (see issues #330, #329, #323, #322, #309).
+
+* Add test for running the extension on Cython modules (see issue #308).
+
+* Add test for running the extension with autoapi (see issue #319).
+
+* Sphinx versions 2.x (and lower) are no longer supported.
+  New minimum required version of Sphinx is 3.5.
+
+* Running pytest without arguments will now by default skip all marked tests
+  that require additional dependencies (currently numpydoc, rinohtype, and
+  cython).
+
+* Fix encoding issues when running tests on Windows.
+
+* Python 3.6 is EOL and is therefore no longer officially supported.
+
+2.5.0 (22 August 2022)
+----------------------
+
+* Add support for the rinohtype builder (reported by brechtm, see issue #275).
+
+* Migrate from ``pkg_resources`` to ``importlib.metadata``. A side effect of
+  this migration is that
+  **plugins registered at runtime are longer exposed as entry points**.
+  This is because ``importlib`` does not allow runtime modification of
+  entry points.
+
+* Remove sphinxcontrib namespace ``__init__.py`` file (no longer needed for
+  Python 3.3+ by PEP420).
+
+* Add support for docutils 0.18.
+
+* Suppress LaTeX url commands in tooltips (see issue #305, reported by
+  1kastner).
+
+* Document Markdown syntax for MyST (suggested by jacopok, see issue #310).
+
+2.4.2 (10 April 2022)
+---------------------
+
+* Add support for Python 3.10 and 3.11.
+
+* New ``bibtex_tooltips`` option.
+  Set to ``False`` to disable tooltip generation.
+  See issue #286.
+
+* New ``bibtex_tooltips_style`` option to customize tooltip text style.
+  If empty (the default), the bibliography style is used.
+  See issue #286.
+
+* Support for ``root_doc`` option introduced in Sphinx 4.0
+  (see issue #292, reported by jhmeinke).
+
+* Use container node instead of paragraph node for containing bibliographies,
+  fixing a violation against the docutils spec
+  (see issue #273, reported by rappdw, with additional input from brechtm).
+
+* Fix mutable dataclass fields for Python 3.11 (see issue #284 and pull
+  request #285; reported and fixed by jamesjer)
+
+* Internal refactor: embed ``reference_text_class`` directly inside the pybtex
+  nodes. This enables different text classes to be used by different styles, so
+  different sorts of docutils nodes can be generated on rendering depending on
+  the pybtex node used. See discussion in issue #275.
+
+* Add numpydoc regression test.
+
+* Bump minimal pybtex requirement to 0.24.
+
 2.4.1 (10 September 2021)
 -------------------------
 

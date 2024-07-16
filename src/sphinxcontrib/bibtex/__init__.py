@@ -6,14 +6,14 @@ from typing import Any, Dict
 
 from sphinx.application import Sphinx
 
-from .domain import BibtexDomain
-from .foot_domain import BibtexFootDomain
-from .nodes import bibliography, raw_latex, visit_raw_latex, depart_raw_latex
-from .roles import CiteRole
 from .directives import BibliographyDirective
-from .transforms import BibliographyTransform
-from .foot_roles import FootCiteRole
+from .domain import BibtexDomain
 from .foot_directives import FootBibliographyDirective
+from .foot_domain import BibtexFootDomain
+from .foot_roles import FootCiteRole
+from .nodes import bibliography, depart_raw_latex, raw_latex, visit_raw_latex
+from .roles import CiteRole
+from .transforms import BibliographyTransform
 
 
 def setup(app: Sphinx) -> Dict[str, Any]:
@@ -27,6 +27,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     * connect events to functions
     """
     app.add_config_value("bibtex_default_style", "alpha", "html")
+    app.add_config_value("bibtex_tooltips", True, "html")
+    app.add_config_value("bibtex_tooltips_style", "", "html")
     app.add_config_value("bibtex_bibfiles", None, "html")
     app.add_config_value("bibtex_encoding", "utf-8-sig", "html")
     app.add_config_value("bibtex_bibliography_header", "", "html")
@@ -41,16 +43,15 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     app.add_directive("bibliography", BibliographyDirective)
     app.add_role("cite", CiteRole())
     app.add_node(bibliography, override=True)
-    app.add_node(raw_latex, latex=(visit_raw_latex, depart_raw_latex),
-                 override=True)
+    app.add_node(raw_latex, latex=(visit_raw_latex, depart_raw_latex), override=True)
     app.add_post_transform(BibliographyTransform)
     app.add_domain(BibtexFootDomain)
     app.add_directive("footbibliography", FootBibliographyDirective)
     app.add_role("footcite", FootCiteRole())
 
     return {
-        'version': '2.4.1',
-        'env_version': 9,
-        'parallel_read_safe': True,
-        'parallel_write_safe': True,
-        }
+        "version": "2.6.2",
+        "env_version": 9,
+        "parallel_read_safe": True,
+        "parallel_write_safe": True,
+    }
